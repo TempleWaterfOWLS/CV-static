@@ -1,0 +1,62 @@
+#!/usr/local/bin/python
+
+import os
+import cv2
+#import cv2.cv as cv
+import math
+import numpy as np
+
+blank = np.zeros((480, 640), np.uint8)
+blank[:,:] = (255)
+
+
+## Resize with resize command
+def resizeImage(img):
+    
+    # mapping from destination to source
+    dst = cv2.resize(img,None,fx=0.25,fy=0.25,interpolation=cv2.INTER_LINEAR)
+    return dst
+
+## Load image
+img = cv2.imread("./buoy_red_1.jpeg")
+
+#img = cv2.bilateralFilter(img, 9, 75, 75)
+
+## Make image single stream black and white
+gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+#
+detector = cv2.SimpleBlobDetector_create()
+
+keypts = detector.detect(gray)
+
+img = cv2.drawKeypoints(img, keypts, np.array([]), (0,0,255), cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS)
+
+#cv2.imshow("canny", can)
+#cv2.imshow("blank", blank)
+"""
+## Use Hough circles to determine the center of the circle (using fake dp and minDist args)
+circles = cv2.HoughCircles(blank, cv2.HOUGH_GRADIENT,1,10)
+
+#circles = np.uint16(np.around(circles))
+print circles
+
+for i in circles[0,:]:
+    #draw the outer circle
+    cv2.circle(img,(i[0],i[1]),i[2],(0,255,0),2)
+    #draw the centre of the circle
+    cv2.circle(img,(i[0],i[1]),2,(0,0,255),3)
+"""
+## Show Images
+cv2.imshow("gray", gray)
+cv2.imshow("img",img)
+
+
+'''
+## End of program
+cv2.waitKey(0)
+'''
+
+while(1):
+    k = cv2.waitKey(1) & 0xFF
+    if k == 27:
+        break
