@@ -1,11 +1,12 @@
-#CV-static
+CV-static
+=========
 
-## Contents
--[File and Folder Descriptions](##file-and-folder-descriptions)
+# Contents
+-[File and Folder Descriptions](#file-and-folder-descriptions)
 
 
 
-##File and Folder Descriptions:
+# File and Folder Descriptions:
 ####auto_canny.py
 Script that loops through all of the .jpg's in the input-photos folder, performs Canny edge detection using automatically generated parameters, then runs findContours to hopefully find the buoys in the image, draws the contours on the image and saves it in output-photos-canny folder.
 Stands for automatically defined parameters, canny edge detection.
@@ -29,11 +30,11 @@ Folder containing the images from input-photos passed through auto_canny.py, on 
 ####output-photos-grid
 Folder containing the image output from auto_canny_cntr.py on which is drawn the grid used for the printed matrix as well as the contour and the minimum circles around the center of the contours
 
-## Requirements:
+# Requirements:
 * Python 2.7
 * OpenCV 3.0
 
-## To Do:
+# To Do:
 - [ ] Parametrize auto_canny_cntr.py so that file to be processed is inputted as a cmd line arg
 - [ ] Actually return the matrix from auto_canny_cntr.py (needs to eventually integrate into ROS)
 - [ ] Clean up both auto_canny scripts. Break up into functions, return objects, add main... the whole shebang
