@@ -2,8 +2,8 @@ CV-static
 =========
 
 # Contents
--[File and Folder Descriptions](#file-and-folder-descriptions)
-
+- [File and Folder Descriptions](#file-and-folder-descriptions)
+- [Requirements](#requirements)
 
 
 # File and Folder Descriptions:
