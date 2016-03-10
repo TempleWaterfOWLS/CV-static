@@ -25,11 +25,17 @@ Idk? Hough circle transform attempt maybe?
 ####input-photos
 Folder containing images to be input to algorithm. Currently contains the left images 1-100 from the 02/24/16 pool test.
 
+![Input photo](/input-photos/left0002.jpg)
+
 ####output-photos-canny
 Folder containing the images from input-photos passed through auto_canny.py, on which are drawn the contours with areas>200.
 
+![Output Canny](/output-photos-canny/left0002.jpg)
+
 ####output-photos-grid
 Folder containing the image output from auto_canny_cntr.py on which is drawn the grid used for the printed matrix as well as the contour and the minimum circles around the center of the contours
+
+![Output grid](/output-photos-grid/left0002.jpg)
 
 # Requirements:
 * Python 2.7
