@@ -1,3 +1,5 @@
 *.JPG
 *.jpg
 *.jpeg
+input-photos/
+output-photos-canny/
