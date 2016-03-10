@@ -1,5 +1,10 @@
 *.JPG
 *.jpg
 *.jpeg
-input-photos/
-output-photos-canny/
+input-photos/*.jpg
+output-photos-canny/*.jpg
+
+# Exceptions to gitignore
+!input-photos/left0002.jpg
+!output-photos-canny/left0002.jpg
+!output-photos-grid/left0002.jpg

@@ -39,3 +39,4 @@ Folder containing the image output from auto_canny_cntr.py on which is drawn the
 - [ ] Parametrize auto_canny_cntr.py so that file to be processed is inputted as a cmd line arg
 - [ ] Actually return the matrix from auto_canny_cntr.py (needs to eventually integrate into ROS)
 - [ ] Clean up both auto_canny scripts. Break up into functions, return objects, add main... the whole shebang
+- [ ] Remove the top half of the grid from the matrix (useless above water information, wastes processing time and creates false positives)
