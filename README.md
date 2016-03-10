@@ -22,3 +22,9 @@ Folder containing the images from input-photos passed through auto_canny.py, on 
 
 ####output-photos-grid
 Folder containing the image output from auto_canny_cntr.py on which is drawn the grid used for the printed matrix as well as the contour and the minimum circles around the center of the contours
+
+
+## To Do:
+- [ ] Parametrize auto_canny_cntr.py so that file to be processed is inputted as a cmd line arg
+- [ ] Actually return the matrix from auto_canny_cntr.py (needs to eventually integrate into ROS)
+- [ ] Clean up both auto_canny scripts. Break up into functions, return objects, add main... the whole shebang
