@@ -4,7 +4,7 @@
 input-photos/*.jpg
 output-photos-canny/*.jpg
 output-photos-grid/*.jpg
-output-photos-blob/*jpg
+#output-photos-blob/*jpg
 
 # Better safe than sorry
 boat-test-photos
