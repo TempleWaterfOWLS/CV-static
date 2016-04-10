@@ -3,8 +3,16 @@
 *.jpeg
 input-photos/*.jpg
 output-photos-canny/*.jpg
+output-photos-grid/*.jpg
+output-photos-blob/*jpg
+
+# Better safe than sorry
+boat-test-photos
+boat-test-photos/*
+boat-test-photos/input-photos/*
 
 # Exceptions to gitignore
 !input-photos/left0002.jpg
 !output-photos-canny/left0002.jpg
 !output-photos-grid/left0002.jpg
+!output-photos-blob/left002.jpg
