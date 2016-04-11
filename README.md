@@ -11,8 +11,14 @@ CV-static
 ####blob.py
 Script that loops through all of the .jpg's in the input-photos folder to implement the Blob Detection algorithm on the bottom half of each picture (below the horizon line) in order to find buoys. The script should generate and print a matrix with values in the grid cells where the center of a buoy was found. It draws the 8x8 grid on the bottom half of the picture, as well as all of the detected keypoints. Image is outputted to output-photos-blob.
 
+####blob_single.py
+Script that contains the function `blob_single(image)` which should be called with the input of the name of the .jpg in input-photos.
+
 ####canny.py
 Script that loops through all of the .jpg's in the input-photos folder to implement the Canny Edge Detection algorithm. It is currently set to print out an 8x8 matrix filled with the number of contour centers found in each block of the image divided in an 8x8 grid. It draws the 8x8 grid as well as the contours of the detected buoys on the image outputted to output-photos-canny. NOTE: This is the algorithm we decided to continue with as it worked more efficiently than Blob Detect.
+
+####canny_single.py
+Script that contains the function `canny_single(image)` which should be called with the input of the name of the .jpg in input-photos.
 
 ####circles.py
 Idk? Hough circle transform attempt maybe?
