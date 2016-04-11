@@ -25,10 +25,11 @@ blockh = height/(rows*2)
 ## Main function: it calls the function using the name of the image in the input-photos folder 
 def canny_single(image):
     i = "/input-photos/" + image
-    findBuoys(i)
+    buoy_mat = findBuoys(i)
     
     ## Close OpenCV and exit Python script when done
     cv2.destroyAllWindows()
+    return buoy_mat
     sys.exit(0)
 
 
@@ -88,13 +89,14 @@ def findBuoys(imgname):
     img = draw_matrix(img)
     
     ## Generate the matrix for the image
-    generate_matrix(contour_centers)
+    buoy_matrix = generate_matrix(contour_centers)
 
     
     ## Save Images with Canny blobs in output photo folder
     stg = outfolder + imgname
     cv2.imwrite(stg, img)
-    
+
+    return buoy_matrix
     ## End of findBuoys
 
 ## Draw gridlines on image
@@ -113,16 +115,23 @@ def generate_matrix(contour_centers):
     
     # Creates a list containing 8 lists initialized to 0
     Matrix = [[0 for x in range(cols)] for x in range(rows)]
-         
+
+    output_matrix = []
+    for row in range(rows):
+        output_matrix[row] = 0
+    
     ## Iterates through the bottom half of the image grid and increments the Matrix cell is a contour center is found there 
     for r in range(rows):
         for c in range(cols):
             for cnt in contour_centers:
                 if cnt[1] > height/2+r*blockh and cnt[1] < height/2+(r+1)*blockh and cnt[0] > c*blockw and cnt[0] < (c+1)*blockw:
                     Matrix[r][c] = Matrix[r][c]+1
-
+            if Matrix[r][c] > 0:
+                output_matrix[r]  = output_matrix[r] + 2**(8-c)
+                    
     ## Print buoys center matrix
-    print Matrix
+    print output_matrix
+    return output_matrix
 
 ## End of generateMatrix()
 
