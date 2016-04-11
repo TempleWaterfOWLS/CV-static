@@ -3,22 +3,27 @@
 import sys
 import os
 import os.path
+import canny
+import canny_single
+import subprocess
 
-def main(argv):
+def main():
+    m=subprocess.Popen("canny_single.py",shell=True)
+
     #input argument is currently just the row of the matrix (start at 5th one)
-    if argv[3] and argv[4]:
+    if m[3] and m[4]:
         command="forward"
-    elif argv[3] and argv[2]:
+    elif m[3] and m[2]:
         command= "slight left"
-    elif argv[4] and argv[5]:
+    elif m[4] and m[5]:
         command="slight right"
-    elif argv[2] and argv[1]:
+    elif m[2] and m[1]:
         command="moderate left"
-    elif argv[5] and argv[6]:
+    elif m[5] and m[6]:
         command="moderate right"
-    elif argv[1] and argv[0]:
+    elif m[1] and m[0]:
         command="hard left"
-    elif argv[6] and argv[7]:
+    elif m[6] and m[7]:
         command="hard right"
     else:
         command="stop"
@@ -27,7 +32,7 @@ def main(argv):
 #publish the command to the topic
     
 if __name__=="__main__":
-    main(sys.argv[0:])
+    main()
 
 
 
