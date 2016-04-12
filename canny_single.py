@@ -24,8 +24,9 @@ blockh = height/(rows*2)
 
 ## Main function: it calls the function using the name of the image in the input-photos folder 
 def canny_single(image):
-    i = "/input-photos/" + image
-    buoy_mat = findBuoys(i)
+    #i = "/input-photos/" + image
+    #print i
+    buoy_mat = findBuoys(image)
     
     ## Close OpenCV and exit Python script when done
     cv2.destroyAllWindows()
@@ -42,6 +43,7 @@ def findBuoys(imgname):
     ## Load image from input photo folder
     img = cv2.imread(infolder + imgname)
 
+    print img
     # Set some parameters automatically (based on statistics magic that I stole from the internet)
     sigma=0.33
     med = np.median(img)
@@ -116,16 +118,18 @@ def generate_matrix(contour_centers):
     # Creates a list containing 8 lists initialized to 0
     Matrix = [[0 for x in range(cols)] for x in range(rows)]
 
-    output_matrix = []
-    for row in range(rows):
-        output_matrix[row] = 0
-    
+    ## Initialize output list of 8 8-bit ints with the default, no-buoy, 0
+    output_matrix = [0]*8
+
     ## Iterates through the bottom half of the image grid and increments the Matrix cell is a contour center is found there 
     for r in range(rows):
         for c in range(cols):
             for cnt in contour_centers:
                 if cnt[1] > height/2+r*blockh and cnt[1] < height/2+(r+1)*blockh and cnt[0] > c*blockw and cnt[0] < (c+1)*blockw:
-                    Matrix[r][c] = Matrix[r][c]+1
+                    try:
+                        Matrix[r][c] = Matrix[r][c]+1
+                    except IndexError:
+                        print ">> ERROR >> r = %d >> c = %d" %(r, c)
             if Matrix[r][c] > 0:
                 output_matrix[r]  = output_matrix[r] + 2**(8-c)
                     

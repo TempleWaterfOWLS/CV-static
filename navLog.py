@@ -14,7 +14,7 @@ def main():
     int_values=canny_single.canny_single("left0002.jpg")
     
     # convert the 4th row into 8 bit binary to determine precise local of buoys
-    m= '{0:08b}'.format(int_values[4])
+    m= '{0:08b}'.format(int_values[3])
 
     # input argument is currently just the row of the matrix (start at 5th one)
     # starting at middle, check to find where 2 spots are open and determine
