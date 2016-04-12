@@ -18,7 +18,7 @@ def main():
     M= '{0:08b}'.format(int_values[row])
     print("M " + M)
     print("N " + N)
-    nextM='{0:0b}'.format(int_values[row++])
+    nextM='{0:0b}'.format(int_values[row--])
     m=[0]*8
     nm=[0]*8
 
