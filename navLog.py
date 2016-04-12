@@ -14,29 +14,39 @@ def main():
     int_values=canny_single.canny_single("left0002.jpg")
     #int_values= [2,4,8,16,32,64,80,0]
     # convert the 4th row into 8 bit binary to determine precise local of buoys
-    M= '{0:08b}'.format(int_values[2])
+    row=3
+    M= '{0:08b}'.format(int_values[row])
     print("M " + M)
+    print("N " + N)
+    nextM='{0:0b}'.format(int_values[row++])
     m=[0]*8
+    nm=[0]*8
 
     # Initialize output array
     m = [0]*len(M)
+    nm=m
     
     # M is read in as a string, but we need to access the bits as binary
     for i in range(len(M)):
         m[i]= str2oppbool(M[i])
+        nm[i]= str2oppbool(nextM[i])
     
     # input argument is currently just the row of the matrix (start at 5th one)
     # starting at middle, check to find where 2 spots are open and determine
     # the relative command that should be sent
-    if m[2] and m[3] and m[4] and m[5]:
+    # you need to check both rows because the center of the buoy could be in the 
+    # next row and it could still prevent passage due to a small fraction of it 
+    # from passing through
+    # We have identified that the boat needs approx 2 squares to pass through
+    if m[2] and m[3] and m[4] and m[5] and nm[2] and nm[3] and nm[4] and nm[5]:
         command="forward" # R= 0.6 L= 0.6
-    elif m[1] and m[2] and m[3] and m[4]:
+    elif m[1] and m[2] and m[3] and m[4] and nm[1] and nm[2] and nm[3] and nm[4]:
         command= "moderate left" # R= 0.6 L=0.45
-    elif m[3] and m[4] and m[5] and m[6]:
+    elif m[3] and m[4] and m[5] and m[6] and nm[3] and nm[4] and nm[5] and nm[6]:
         command="moderate right" # R=0.45 L=0.6
-    elif m[0] and m[1] and m[2] and m[3]:
+    elif m[0] and m[1] and m[2] and m[3] and nm[0] and nm[1] and nm[2] and nm[3]:
         command="left" # R= 0.6 L=0.3
-    elif m[4] and m[5] and m[6] and m[7]:
+    elif m[4] and m[5] and m[6] and m[7] and nm[4] and nm[5] and nm[6] and nm[7]:
         command="right" # R=0.3 L=0.6
     else:
         command="run awayyyy" # R= 0 L=0.6, maybe even higher
