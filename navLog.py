@@ -19,7 +19,7 @@ def main():
     # input argument is currently just the row of the matrix (start at 5th one)
     # starting at middle, check to find where 2 spots are open and determine
     # the relative command that should be sent
-    if m[2] and m[3] and m[4] and m[5]:
+    if str2bool(m[2]) and str2bool(m[3]) and str2bool(m[4]) and str2bool(m[5]):
         command="forward"
     elif m[1] and m[2] and m[3] and m[4]:
         command= "moderate left"
@@ -35,7 +35,12 @@ def main():
     return command
 
 # then publish the command to the topic
-    
+
+# Stolen from the interet for our convenience
+def str2bool(v):
+    return v.lower() in ("yes", "true", "t", "1")
+
+
 if __name__=="__main__":
     main()
 
