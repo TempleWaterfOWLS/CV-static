@@ -17,7 +17,7 @@ def main():
     M= '{0:08b}'.format(int_values[3])
 
     # M is read in as a string, but we need to access the bits as binary
-    for i in M:
+    for i in range(M):
         m[i]= str2bool(M[i])
 
     # input argument is currently just the row of the matrix (start at 5th one)
