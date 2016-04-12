@@ -16,8 +16,11 @@ def main():
     # convert the 4th row into 8 bit binary to determine precise local of buoys
     M= '{0:08b}'.format(int_values[3])
 
+    # Initialize output array
+    m = [0]*len(M)
+    
     # M is read in as a string, but we need to access the bits as binary
-    for i in M:
+    for i in range(len(M)):
         m[i]= str2bool(M[i])
 
     # input argument is currently just the row of the matrix (start at 5th one)
