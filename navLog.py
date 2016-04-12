@@ -14,12 +14,16 @@ def main():
     int_values=canny_single.canny_single("left0002.jpg")
     
     # convert the 4th row into 8 bit binary to determine precise local of buoys
-    m= '{0:08b}'.format(int_values[3])
+    M= '{0:08b}'.format(int_values[3])
+
+    # M is read in as a string, but we need to access the bits as binary
+    for i in M:
+        m[i]= str2bool(M[i])
 
     # input argument is currently just the row of the matrix (start at 5th one)
     # starting at middle, check to find where 2 spots are open and determine
     # the relative command that should be sent
-    if str2bool(m[2]) and str2bool(m[3]) and str2bool(m[4]) and str2bool(m[5]):
+    if m[2] and m[3] and m[4] and m[5]:
         command="forward"
     elif m[1] and m[2] and m[3] and m[4]:
         command= "moderate left"
