@@ -23,6 +23,12 @@ Script that contains the function `canny_single(image)` which should be called w
 ####circles.py
 Idk? Hough circle transform attempt maybe?
 
+####navLog.py
+Navigation logic that is called by the publisher in order to analyze the matrix results of the image and returns a string that is the command that should be published. It analyzes specific parts of the image matrix in order to determine what direction it should turn based on the openings in the row of the matrix. Due to the fact that the center of the buoy registers in a spot in the matrix, it is important that we take that into consideration. A buoy may be centered in one block, but just barely, therefore half of the buoy may be in another block and t would not be recognized. Due to pool testing measurements, we have identified that we neex approximately two horizontal blocks in order for the boat to pass through, therefore if we take into consideration the fact that there may be half of a buoy hanging into the free space, with the potential for it to happen on each side, we must then therefore look for an opening of 4 blocks. Additionally, we must check the blocks above the row we are analyzing because a similar instance may occur that the center is in the block above it, yet half of the buoy is hanging into the current row and ignored. The severity of the turn is distinguished in the command, although will be fully implemented in the finite state machine after the command is sent via ROS, but the actual motor percentages in the FSM are based on calculations due to RPM, these example ones are pure speculation. 
+
+####ros_pub.py
+Simple ROS publisher script that calls navLog.py, which returns the string command. The topic is set up to recieve a message of type String, and we publish the command that way. The Finite State Machine will subscribe to the same topic and therefore receive the string command and then execute accordingly. The node is called talker and the topic is called topic as of right now. Names might be changed due to subscriber setup.   
+
 ####input-photos
 Folder containing images to be input to algorithm. Currently contains the left images 1-100 from the 02/24/16 pool test.
 
