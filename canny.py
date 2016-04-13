@@ -22,14 +22,19 @@ height = 480
 blockw = width/cols
 blockh = height/(rows*2)
 
+filename = "canny_matrices.txt"
+    
+
 ## Main function
 def main():
+
+    f = open(filename, 'w')
     ## Iterate through all of the input jpg photos in the directory under the working dir
     ## and run the findBuoys Canny function on them.
     for i in os.listdir(os.getcwd()+"/input-photos/"):
         if i.endswith(".jpg"):
             print i
-            findBuoys(i)
+            findBuoys(i, f)
             continue
         else:
             continue
@@ -43,7 +48,7 @@ def main():
 ## Function to use Canny Edge Detection + findContours methods to find buoys in every image in the
 ## input photo folder, then save the images with the detected contours in the output photo folder.
 ## It uses weird statistics magic that I stole from the internet to set the parameter for Canny ED. 
-def findBuoys(imgname):
+def findBuoys(imgname, f):
     
     ## Load image from input photo folder
     img = cv2.imread(infolder + imgname)
@@ -95,7 +100,10 @@ def findBuoys(imgname):
     img = draw_matrix(img)
     
     ## Generate the matrix for the image
-    generate_matrix(contour_centers)
+    mat = generate_matrix(contour_centers)
+
+    ## Save each matrix to an output file
+    print_matrix_to_txt(mat, f, imgname)
 
     
     ## Save Images with Canny blobs in output photo folder
@@ -120,7 +128,10 @@ def generate_matrix(contour_centers):
     
     # Creates a list containing 8 lists initialized to 0
     Matrix = [[0 for x in range(cols)] for x in range(rows)]
-         
+
+    ## Initialize output list of 8 8-bit ints with the default, no-buoy, 0
+    output_matrix = [0]*8
+
     ## Iterates through the bottom half of the image grid and increments the Matrix cell is a contour center is found there 
     for r in range(rows):
         for c in range(cols):
@@ -128,11 +139,27 @@ def generate_matrix(contour_centers):
                 if cnt[1] > height/2+r*blockh and cnt[1] < height/2+(r+1)*blockh and cnt[0] > c*blockw and cnt[0] < (c+1)*blockw:
                     Matrix[r][c] = Matrix[r][c]+1
 
+            if Matrix[r][c] > 0:
+                output_matrix[r]  = output_matrix[r] + 2**(8-c)
+            
     ## Print buoys center matrix
     print Matrix
+    return output_matrix
 
 ## End of generateMatrix()
 
+## Function to print matrices to output file
+def print_matrix_to_txt(mat, f, img):
+    f.write(img)
+    f.write("\n")
+    f.write(str(mat))
+    f.write("\n")
+    '''
+    for i in range(len(mat)):
+        f.write(str(mat[i]))
+    '''
+    # End of print_matrix
+    
 
 ## Do the main thing
 if __name__ == '__main__':
