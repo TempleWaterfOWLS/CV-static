@@ -11,7 +11,7 @@ import sys
 
 ## Set folder of input and output images
 infolder = "input-photos/"
-outfolder = "output-photos-grid/"
+outfolder = "output-photos-canny/"
 
 ## Set number image and matrix parameters
 cols = rows = 8
@@ -90,7 +90,6 @@ def findBuoys(imgname, f):
                 radius = int(radius)
                 ## Draw radius on image
                 img = cv2.circle(img, center, radius, (255, 0, 0), 2)
-
             
     ## Draw all contours larger than 200 (in filteredContour)
     cv2.drawContours(img, filteredContour, -1, (0,255,0), 2)
@@ -104,10 +103,10 @@ def findBuoys(imgname, f):
 
     ## Save each matrix to an output file
     print_matrix_to_txt(mat, f, imgname)
-
     
     ## Save Images with Canny blobs in output photo folder
     stg = outfolder + imgname
+    print stg
     cv2.imwrite(stg, img)
     
     ## End of findBuoys
