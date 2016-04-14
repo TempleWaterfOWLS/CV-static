@@ -3,34 +3,37 @@
 import sys
 import os
 import os.path
-import canny
-import canny_single
+#import canny
+#import canny_single
 import numpy
 
 def main():
     # read in the integer values which represent the binary of where the buoys
     # are in the matrix through the use of canny_single and providing the
     # image to be checked
-    int_values=canny_single.canny_single("left0002.jpg")
-    #int_values= [2,4,8,16,32,64,80,0]
+    #int_values=canny_single.canny_single("left0002.jpg")
+    int_values= [0,16,0,0,0,0,0,0]
+    print("Image: " + "left0009.jpg")
+    print ("Int_values ",int_values)
     # convert the 4th row into 8 bit binary to determine precise local of buoys
     row=3
-    M= '{0:08b}'.format(int_values[row])
-    print("M " + M)
-    print("N " + N)
-    nextM='{0:0b}'.format(int_values[row--])
+    nextRow=row-1
+    M= '{0:08b}'.format((int_values[row]/2))
+    nextM='{0:08b}'.format((int_values[nextRow]/2))
+    print ("NM " + nextM)
+    print("M  " + M)
     m=[0]*8
     nm=[0]*8
 
     # Initialize output array
     m = [0]*len(M)
-    nm=m
+    nm= [0]*len(M)
     
     # M is read in as a string, but we need to access the bits as binary
     for i in range(len(M)):
         m[i]= str2oppbool(M[i])
         nm[i]= str2oppbool(nextM[i])
-    
+        
     # input argument is currently just the row of the matrix (start at 5th one)
     # starting at middle, check to find where 2 spots are open and determine
     # the relative command that should be sent
@@ -61,7 +64,7 @@ def main():
 # switched it to be for the false values since we want the path to 
 # be clear, which is represented by a 0, or boolean false
 def str2oppbool(v):
-    return v.lower() in ("no", "false", "f", "0")
+    return v.lower() in ("0")
 
 
 if __name__=="__main__":
